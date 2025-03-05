@@ -3,7 +3,7 @@ use tokio;
 
 //use sqlx::PgPool;
 use rig::{completion::Prompt, providers};
-// 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
+
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
     // Create OpenAI client
