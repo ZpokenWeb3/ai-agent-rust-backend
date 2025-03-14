@@ -5,7 +5,6 @@ use ethers::contract::Contract;
 use std::sync::Arc;
 use std::error::Error;
 use std::fs;
-use tokio;
 
 const CONTRACT_ABI_PATH: &str = "prize_contract.abi";
 const BONDING_ABI_PATH: &str = "bonding_curve_contract.abi";

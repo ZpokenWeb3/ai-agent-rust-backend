@@ -2,7 +2,8 @@ use redis::AsyncCommands;
 use redis::Client;
 use serde::{Deserialize, Serialize};
 use std::error::Error;
-
+use std::sync::Arc;
+use tokio::sync::Mutex;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RedisChatMessage {
     role: String,
@@ -42,5 +43,24 @@ impl RedisChatHistory {
         let serialized = serde_json::to_string(&messages)?;
         conn.set::<_, _, ()>(&self.session_id, serialized).await?;
         Ok(())
+    }
+}
+
+pub struct RedisClient {
+    client: Arc<Mutex<Client>>,
+}
+
+impl RedisClient {
+    pub async fn new(redis_url: &str) -> Result<Self, Box<dyn Error>> {
+        let client = Client::open(redis_url)?;
+        Ok(Self {
+            client: Arc::new(Mutex::new(client)),
+        })
+    }
+
+    pub async fn get_connection(&self) -> Result<redis::aio::MultiplexedConnection, Box<dyn Error>> {
+        let client = self.client.lock().await;
+        let conn = client.get_multiplexed_async_connection().await?;
+        Ok(conn)
     }
 }

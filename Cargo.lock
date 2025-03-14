@@ -625,6 +625,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ace50bade8e6234aa140d9a2f552bbee1db4d353f69b8217bc503490fc1a9f26"
 
 [[package]]
+name = "backon"
+version = "1.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49fef586913a57ff189f25c9b3d034356a5bf6b3fa9a7f067588fe1698ba1f5d"
+dependencies = [
+ "fastrand",
+]
+
+[[package]]
 name = "backtrace"
 version = "0.3.74"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3772,6 +3781,7 @@ dependencies = [
  "log",
  "once_cell",
  "openai",
+ "openai-api-rs",
  "redis",
  "regex",
  "reqwest 0.11.27",
@@ -4193,6 +4203,18 @@ dependencies = [
  "futures-util",
  "reqwest 0.12.14",
  "reqwest-eventsource",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "openai-api-rs"
+version = "0.1.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ecc9e31347d94db4fa54ef5b272c97a039b126e07efa9c54dad33ca39f1b637f"
+dependencies = [
+ "reqwest 0.11.27",
  "serde",
  "serde_json",
  "tokio",
@@ -4975,8 +4997,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8034fb926579ff49d3fe58d288d5dcb580bf11e9bccd33224b45adebf0fd0c23"
 dependencies = [
  "arc-swap",
+ "backon",
  "bytes",
  "combine",
+ "futures-channel",
  "futures-util",
  "itoa",
  "num-bigint 0.4.6",

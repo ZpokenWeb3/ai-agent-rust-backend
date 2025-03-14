@@ -5,7 +5,7 @@ use actix_web::cookie::{Cookie, CookieJar};
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use crate::core::db::get_db_pool;
-use crate::core::redis::RedisClient;
+use crate::utils::redis::RedisClient;
 use anyhow::Result;
 use std::collections::HashMap;
 

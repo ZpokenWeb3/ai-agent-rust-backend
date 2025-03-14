@@ -4,13 +4,12 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-rig-core = "0.9.1"
 tokio = { version = "1.34.0", features = ["full"] }
 anyhow = "1.0.75"
 solana-sdk = "2.2.1"
 sqlx = {version = "0.8.3", features = ["runtime-tokio", "postgres"]}
 tracing = "0.1.41"
-redis = { version = "0.29.1", features = ["aio", "tokio-comp"]}
+redis = { version = "0.29.1", features = ["aio", "tokio-comp", "connection-manager"]}
 sea-orm = {version = "1.1.7", features = ["macros", "runtime-tokio-rustls", "sqlx-mysql"]}
 chrono = "0.4.40"
 reqwest = {version = "0.11", features = ["json"]}
@@ -21,6 +20,7 @@ uuid = { version = "1.3", features = ["v4"] }
 log = "0.4"  
 env_logger = "0.10"  
 ethers = { version = "2.0", features = ["rustls"] }  
+openai-api-rs = "0.1.9"
 
 base58 = "0.2"  
 regex = "1.5"  
@@ -41,3 +41,4 @@ lazycell = "1.3.0"
 lazy_static = "1.5.0"
 strum_macros = "0.27.1"
 strum = {version = "0.27.1", features = ["derive"]}
+rig-core = "0.9.1"

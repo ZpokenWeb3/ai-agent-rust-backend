@@ -4,7 +4,7 @@ use sqlx::PgPool;
 use uuid::Uuid;
 use chrono::Utc;
 use crate::core::db::get_db_pool;
-use crate::core::redis::RedisClient;
+use crate::utils::redis::RedisClient;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use anyhow::Result;

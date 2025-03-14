@@ -9,3 +9,4 @@ pub mod smc_driver;
 pub mod solana_driver;
 pub mod telegram_bot;
 pub mod twitter_driver;
+pub mod rag;
