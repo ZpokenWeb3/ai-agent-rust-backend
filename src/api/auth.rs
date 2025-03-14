@@ -4,8 +4,8 @@ use sqlx::PgPool;
 use actix_web::cookie::{Cookie, CookieJar};
 use std::sync::Arc;
 use tokio::sync::Mutex;
-use crate::db::get_db_pool;
-use crate::redis::RedisClient;
+use crate::core::db::get_db_pool;
+use crate::core::redis::RedisClient;
 use anyhow::Result;
 use std::collections::HashMap;
 
@@ -73,7 +73,7 @@ pub async fn get_nonce(
     req: HttpRequest,
 ) -> impl Responder {
     let session_id = uuid::Uuid::new_v4().to_string();
-    let nonce = "some_nonce"; // Generate nonce logic
+    let nonce = "some_nonce"; 
 
     let mut redis = redis_client.lock().await;
     redis.set_json(&session_id, &serde_json::json!({ "nonce": nonce })).await.unwrap();

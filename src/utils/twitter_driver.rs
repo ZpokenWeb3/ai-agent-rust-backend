@@ -15,7 +15,7 @@ impl TwitterDriver {
     }
 
     pub async fn tweet_post(&self, text: &str) -> Result<(), Box<dyn Error>> {
-        let draft = DraftTweet::new(text);
+        let draft = DraftTweet::new(text.to_string());
         draft.send(&self.token).await?;
         Ok(())
     }

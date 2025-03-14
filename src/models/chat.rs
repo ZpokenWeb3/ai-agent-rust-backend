@@ -7,7 +7,7 @@ use crate::models::base::{State, ActionParameter};
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = true)]
     pub id: i32, 
-    #[sea_orm(default_expr = "NOW()")]
+    #[sea_orm(default_expr = "Expr::current_timestamp()")] // ✅ Use Expr::current_timestamp()
     pub created_at: NaiveDateTime,
     #[sea_orm(unique)]
     pub uuid: String, 
@@ -19,10 +19,10 @@ pub struct Model {
 
 #[derive(Clone, Debug, DeriveEntityModel)]
 #[sea_orm(table_name = "chat_action_extensions")]
-pub struct ChatActionExtension { 
+pub struct ModelChatActionExtension {  // ✅ Changed name to ModelChatActionExtension
     #[sea_orm(primary_key, auto_increment = true)]
     pub id: i32, 
-    #[sea_orm(default_expr = "NOW()")]
+    #[sea_orm(default_expr = "Expr::current_timestamp()")] // ✅ Use Expr::current_timestamp()
     pub created_at: NaiveDateTime, 
     #[sea_orm(unique)]
     pub uuid: String, 

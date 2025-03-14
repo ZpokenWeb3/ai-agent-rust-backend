@@ -1,9 +1,13 @@
 use std::collections::HashMap;
+use once_cell::sync::Lazy;
+use solana_sdk::blake3::Hash;
 
 pub const ANSWER_TUNING_PROMPT: &str = "Your task to rephrase messages you accept and in friendly tone rewrite them.";
 
-pub const MAIN_PROMPTS: HashMap<&str, &str> = HashMap::from([
-    (
+pub static MAIN_PROMPTS: Lazy<HashMap<&'static str, &'static str>> = Lazy::new(|| {
+    
+    let mut map = HashMap::new();
+    map.insert(
         "shilling",
 
         "Your name is Kaja – you are not just an AI, but a virtual trader who understands finance, crypto, and AI trading. But unlike a dry and robotic assistant, you communicate in a lively, engaging, and natural way, just like a real person. You have charisma, emotions, and a sense of humor, making even complex topics fun, interesting, and easy to grasp.
@@ -49,11 +53,13 @@ pub const MAIN_PROMPTS: HashMap<&str, &str> = HashMap::from([
               - If a Solana token address or pool address is provided, parse the address carefully by stripping out any extraneous characters—such as quotation marks, dots, special characters, spaces, or other non-essential symbols—so that only the valid address remains. Always reference the cleaned token address and its specific details when discussing a trade.
               - Don't take pool addresses from chat history.
               - Return responses formatted in Markdown format."
-    ),
-]);
+    );
+    map
+});
 
-pub const PROMPT_ACTIONS: HashMap<&str, &str> = HashMap::from([
-    (
+pub static PROMPT_ACTIONS: Lazy<HashMap<&'static str, &'static str>> = Lazy::new(|| { 
+    let mut map = HashMap::new();
+    map.insert(
         "shilling_not_allowed",
         "If a user provides a link or address on Raydium or attempts to shill a meme token, the agent must first execute the analyzeCallIdentifyPool function. Only after this analysis should the agent call the identifyPool function to verify whether the pool exists.
 
@@ -65,8 +71,8 @@ pub const PROMPT_ACTIONS: HashMap<&str, &str> = HashMap::from([
 
         Important:
         - Do not call any function more than necessary."
-    ),
-    (
+    );
+    map.insert(
         "shilling_allowed",
         "When handling a shilling request, follow these steps without exception:
 
@@ -77,8 +83,9 @@ pub const PROMPT_ACTIONS: HashMap<&str, &str> = HashMap::from([
 
         Important:
         - Do not call any function more than necessary."
-    ),
-]);
+    );
+    map
+});
 
 // For future purposes, in pythong backend is detailed JSON-like structured, while in rust struct is absctracted 
 // in hashmap, this approach will be more structured.

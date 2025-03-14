@@ -1,4 +1,5 @@
-use redis::{AsyncCommands, Client};
+use redis::AsyncCommands;
+use redis::Client;
 use serde::{Deserialize, Serialize};
 use std::error::Error;
 
@@ -20,7 +21,7 @@ impl RedisChatHistory {
     }
 
     pub async fn base_messages(&self) -> Result<Vec<RedisChatMessage>, Box<dyn Error>> {
-        let mut conn = self.client.get_async_connection().await?;
+        let mut conn = self.client.get_multiplexed_async_connection().await?;
         let messages: Option<String> = conn.get(&self.session_id).await?;
 
         if let Some(data) = messages {
@@ -32,14 +33,14 @@ impl RedisChatHistory {
     }
 
     pub async fn add_message(&self, role: &str, content: &str) -> Result<(), Box<dyn Error>> {
-        let mut conn = self.client.get_async_connection().await?;
+        let mut conn = self.client.get_multiplexed_async_connection().await?;
         let mut messages = self.base_messages().await?;
         messages.push(RedisChatMessage {
             role: role.to_string(),
             content: content.to_string(),
         });
         let serialized = serde_json::to_string(&messages)?;
-        conn.set(&self.session_id, serialized).await?;
+        conn.set::<_, _, ()>(&self.session_id, serialized).await?;
         Ok(())
     }
 }

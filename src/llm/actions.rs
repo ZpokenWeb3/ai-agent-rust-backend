@@ -1,4 +1,4 @@
-use std::collection::HashMap;
+use std::collections::HashMap;
 use anyhow::Result;
 use tokio;
 use sqlx::PgPool;

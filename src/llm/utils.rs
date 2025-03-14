@@ -2,7 +2,7 @@ use anyhow::{Result, anyhow};
 use serde_json::{json, Value};
 use sqlx::PgPool;
 use tracing::{error, info};
-use crate::llm_service::{
+use super::llm_service::{
     process_fetch_data_from_dex_screener, process_shilling, retrieve_portfolio_information,
     retrieve_buy_decision, retrieve_pnl_information, validate_raydium_pool, publish_twitter_post,
     analyze_call_identify_pool

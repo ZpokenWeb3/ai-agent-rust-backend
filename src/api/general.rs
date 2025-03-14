@@ -3,8 +3,8 @@ use serde::{Serialize, Deserialize};
 use sqlx::PgPool;
 use std::sync::Arc;
 use tokio::sync::Mutex;
-use crate::db::get_db_pool;
-use crate::redis::RedisClient;
+use crate::core::db::get_db_pool;
+use crate::core::redis::RedisClient;
 use anyhow::Result;
 use chrono::Utc;
 

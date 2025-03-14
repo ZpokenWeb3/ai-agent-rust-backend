@@ -16,7 +16,8 @@ impl TelegramBot {
     }
 
     pub async fn send_message(&self, message: &str) -> Result<(), Box<dyn Error>> {
-        let params = [("chat_id", &self.chat), ("text", message)];
+        let message  = message.to_string();
+        let params = [("chat_id", &self.chat), ("text", &message)];
         reqwest::Client::new()
             .post(format!("{}/sendMessage", self.url))
             .form(&params)

@@ -8,7 +8,7 @@ pub struct LLmResponse {
 }
 
 impl LLmResponse { 
-    pub fn new(text: &str, decision: &str, aux_data: Option<HashMap<String, String>>) { 
+    pub fn new(text: &str, decision: &str, aux_data: Option<HashMap<String, String>>)  -> LLmResponse { 
         Self { 
             text: text.to_string(),
             decision: decision.to_string(),

@@ -2,7 +2,7 @@ use actix_web::{get, web, HttpResponse, Responder};
 use serde::{Serialize, Deserialize};
 use sqlx::PgPool;
 use chrono::{DateTime, Utc};
-use crate::db::get_db_pool;
+use crate::core::db::get_db_pool;
 use anyhow::Result;
 
 

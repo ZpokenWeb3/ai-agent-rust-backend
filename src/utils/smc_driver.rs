@@ -1,7 +1,10 @@
 use ethers::prelude::*;
+use ethers::abi::Abi;
 use ethers::signers::{LocalWallet, Signer};
+use ethers::contract::Contract;
 use std::sync::Arc;
 use std::error::Error;
+use std::fs;
 use tokio;
 
 const CONTRACT_ABI_PATH: &str = "prize_contract.abi";
@@ -21,21 +24,28 @@ impl SMCDriver {
         bonding_contract_address: &str,
         private_key: &str,
     ) -> Result<Self, Box<dyn Error>> {
+        // Initialize provider
         let provider = Arc::new(Provider::<Http>::try_from(rpc_url)?);
-        let wallet: LocalWallet = private_key.parse::<LocalWallet>()?.with_chain_id(1);
-        let address = wallet.address();
 
-        let prize_contract = Contract::from_json(
-            provider.clone(),
+        // Parse wallet
+        let wallet: LocalWallet = private_key.parse::<LocalWallet>()?.with_chain_id(1u64);
+
+        // Read and parse contract ABIs
+        let prize_abi = serde_json::from_str::<Abi>(&fs::read_to_string(CONTRACT_ABI_PATH)?)?;
+        let bonding_abi = serde_json::from_str::<Abi>(&fs::read_to_string(BONDING_ABI_PATH)?)?;
+
+        // Create contract instances using `Contract::new`
+        let prize_contract = Contract::new(
             contract_address.parse::<Address>()?,
-            std::fs::read_to_string(CONTRACT_ABI_PATH)?.as_bytes(),
-        )?;
-
-        let bonding_contract = Contract::from_json(
+            prize_abi,
             provider.clone(),
+        );
+
+        let bonding_contract = Contract::new(
             bonding_contract_address.parse::<Address>()?,
-            std::fs::read_to_string(BONDING_ABI_PATH)?.as_bytes(),
-        )?;
+            bonding_abi,
+            provider.clone(),
+        );
 
         Ok(Self {
             provider,
@@ -54,10 +64,10 @@ impl SMCDriver {
         let to: Address = user_address.parse()?;
         let balance = self.get_prize_pool_balance().await?;
         let gas_price = self.provider.get_gas_price().await?;
-        let gas_limit = 21000.into();
+        let gas_limit = U256::from(21000);
         let transaction_fee = gas_price * gas_limit;
 
-        let value_to_send = balance - transaction_fee;
+        let value_to_send = balance.checked_sub(transaction_fee).ok_or("Insufficient balance")?;
 
         let tx = TransactionRequest::new()
             .to(to)
