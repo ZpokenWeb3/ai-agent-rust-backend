@@ -17,7 +17,7 @@ pub struct SMCDriver {
 }
 
 impl SMCDriver {
-    pub async fn new(
+    pub async fn new_smc(
         rpc_url: &str,
         contract_address: &str,
         bonding_contract_address: &str,

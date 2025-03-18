@@ -6,7 +6,7 @@ pub struct TwitterDriver {
 }
 
 impl TwitterDriver {
-    pub fn new(consumer_key: &str, consumer_secret: &str, access_key: &str, access_secret: &str) -> Self {
+    pub fn new_twitter(consumer_key: &str, consumer_secret: &str, access_key: &str, access_secret: &str) -> Self {
         let token = Token::Access {
             consumer: egg_mode::KeyPair::new(consumer_key.to_string(), consumer_secret.to_string()),
             access: egg_mode::KeyPair::new(access_key.to_string(), access_secret.to_string()),

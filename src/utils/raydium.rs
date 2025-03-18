@@ -10,7 +10,7 @@ pub struct RaydiumClient {
 }
 
 impl RaydiumClient {
-    pub fn new() -> Self {
+    pub fn new_raydium_client() -> Self {
         Self {
             client: Client::new(),
         }

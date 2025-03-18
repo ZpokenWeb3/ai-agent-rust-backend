@@ -4,7 +4,7 @@ use crate::models::base::{State, ActionParameter};
 
 #[derive(Clone, Debug, DeriveEntityModel)]
 #[sea_orm(table_name = "chats")]
-pub struct Model {
+pub struct Model_Chat {
     #[sea_orm(primary_key, auto_increment = true)]
     pub id: i32, 
     #[sea_orm(default_expr = "Expr::current_timestamp()")] // ✅ Use Expr::current_timestamp()

@@ -16,7 +16,7 @@ pub struct RedisChatHistory {
 }
 
 impl RedisChatHistory {
-    pub async fn new(session_id: String, redis_url: &str) -> Result<Self, Box<dyn Error>> {
+    pub async fn new_redis_chat(session_id: String, redis_url: &str) -> Result<Self, Box<dyn Error>> {
         let client = Client::open(redis_url)?;
         Ok(Self { client, session_id })
     }
@@ -51,7 +51,7 @@ pub struct RedisClient {
 }
 
 impl RedisClient {
-    pub async fn new(redis_url: &str) -> Result<Self, Box<dyn Error>> {
+    pub async fn new_redis_client(redis_url: &str) -> Result<Self, Box<dyn Error>> {
         let client = Client::open(redis_url)?;
         Ok(Self {
             client: Arc::new(Mutex::new(client)),

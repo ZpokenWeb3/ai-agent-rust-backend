@@ -10,7 +10,7 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new() -> Self {
+    pub fn new_config() -> Self {
         dotenv().ok();
         Self {
             api_v1_prefix: "/api/v1".to_string(),
@@ -31,7 +31,7 @@ pub struct RedisSettings {
 }
 
 impl RedisSettings {
-    pub fn new() -> Self {
+    pub fn new_redis() -> Self {
         dotenv().ok();
         let redis_host = env::var("REDIS_HOST").unwrap_or_default();
         let redis_port = env::var("REDIS_PORT").unwrap_or_default();
@@ -58,7 +58,7 @@ pub struct TelegramSettings {
 }
 
 impl TelegramSettings {
-    pub fn new() -> Self {
+    pub fn new_telegram() -> Self {
         dotenv().ok();
         Self {
             tg_token: env::var("TG_TOKEN").unwrap_or_default(),
@@ -79,7 +79,7 @@ pub struct DBSettings {
 }
 
 impl DBSettings {
-    pub fn new() -> Self {
+    pub fn new_db() -> Self {
         dotenv().ok();
         let db_name = env::var("DB_NAME").unwrap_or_default();
         let db_user = env::var("DB_USER").unwrap_or_default();
@@ -113,7 +113,7 @@ pub struct SMCSettings {
 }
 
 impl SMCSettings {
-    pub fn new() -> Self {
+    pub fn new_smc() -> Self {
         dotenv().ok();
         Self {
             web3_provider: "https://1rpc.io/sepolia".to_string(),
@@ -133,7 +133,7 @@ pub struct SolanaSettings {
 }
 
 impl SolanaSettings {
-    pub fn new() -> Self {
+    pub fn new_solana() -> Self {
         dotenv().ok();
         Self {
             rpc_url: env::var("RPC_URL").unwrap_or_else(|_| "https://api.mainnet-beta.solana.com".to_string()),
@@ -153,7 +153,7 @@ pub struct TwitterSettings {
 }
 
 impl TwitterSettings {
-    pub fn new() -> Self {
+    pub fn new_twitter() -> Self {
         dotenv().ok();
         Self {
             api_key: env::var("API_KEY").unwrap_or_default(),

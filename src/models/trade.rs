@@ -14,7 +14,7 @@ pub enum TradeTypeEnum {
 
 #[derive(Clone, Debug, DeriveEntityModel)]
 #[sea_orm(table_name = "trades")]
-pub struct Model {
+pub struct Model_Trade {
     #[sea_orm(primary_key, auto_increment = true)]
     pub id: i32,
 

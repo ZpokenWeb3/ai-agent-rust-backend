@@ -15,7 +15,7 @@ pub struct SolanaDriver {
 }
 
 impl SolanaDriver {
-    pub fn new(rpc_url: &str, agent_keypair: Keypair) -> Self {
+    pub fn new_solana_driver(rpc_url: &str, agent_keypair: Keypair) -> Self {
         Self {
             client: RpcClient::new_with_commitment(rpc_url.to_string(), CommitmentConfig::confirmed()),
             agent_keypair,

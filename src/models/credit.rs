@@ -3,7 +3,7 @@ use crate::models::user; // Correct module import
 
 #[derive(Clone, Debug, DeriveEntityModel)]
 #[sea_orm(table_name = "credits")]
-pub struct Model {
+pub struct Model_Credit {
     #[sea_orm(primary_key, auto_increment = true)] 
     pub id: i32, 
     

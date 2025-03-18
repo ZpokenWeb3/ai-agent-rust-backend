@@ -7,7 +7,7 @@ pub struct TelegramBot {
 }
 
 impl TelegramBot {
-    pub fn new(token: &str, chat: &str) -> Self {
+    pub fn new_telegram_bot(token: &str, chat: &str) -> Self {
         let url = format!("https://api.telegram.org/bot{}", token);
         Self {
             url,

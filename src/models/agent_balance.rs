@@ -4,7 +4,7 @@ use crate::models::base::Model as BaseModel;
 
 #[derive(Clone, Debug, DeriveEntityModel)]
 #[sea_orm(table_name = "agent_balance_changes")]
-pub struct Model {
+pub struct Model_Agent {
     #[sea_orm(primary_key, auto_increment = true)]
     pub id: i32, 
     #[sea_orm(default_value = "CURRENT_TIMESTAMP")]

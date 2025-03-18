@@ -5,7 +5,7 @@ use strum_macros::{Display};
 
 #[derive(Clone, Debug, DeriveEntityModel)]
 #[sea_orm(table_name= "base_models")]
-pub struct Model {
+pub struct Model_Base {
     #[sea_orm(primary_key, auto_increment = true)]
     pub id: i32, 
 }
