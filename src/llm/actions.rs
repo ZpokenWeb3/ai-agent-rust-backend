@@ -4,7 +4,7 @@ use tokio;
 use sqlx::PgPool;
 use tracing::error;
 use serde::Serialize;
-
+use crate::utils::dexscreener::fetch_dexscreener_data;
 // process_fetch_data_from_dex_screener
 // retrieve_portfolio_information
 // retrieve_pnl_information

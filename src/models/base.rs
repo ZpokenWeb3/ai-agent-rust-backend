@@ -1,24 +1,24 @@
 use sea_orm::prelude::*;
-use std::fmt;
-use strum::EnumString;
-use strum_macros::{Display};
+use sea_orm::entity::prelude::*;
+use sea_orm::DeriveActiveEnum;  
+use strum::{EnumString, Display};
+use strum_macros::{EnumIter};
 
-#[derive(Clone, Debug, DeriveEntityModel)]
-#[sea_orm(table_name= "base_models")]
-pub struct Model_Base {
-    #[sea_orm(primary_key, auto_increment = true)]
-    pub id: i32, 
+#[derive(Debug, Clone, EnumString, Display, EnumIter, DeriveActiveEnum, PartialEq)]
+#[sea_orm(rs_type = "String", db_type = "String")]  // ✅ Fix: Proper db_type
+pub enum TradeTypeEnum { 
+    #[sea_orm(string_value = "open")]
+    Open,
+    #[sea_orm(string_value = "closed")]
+    Closed,
 }
 
-impl fmt::Display for Model { 
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "BaseModel [{}]", self.id)
-    }
-}
-
-#[derive(Debug, Clone, EnumString, Display, PartialEq)]
+#[derive(Debug, Clone, EnumString, Display, EnumIter, DeriveActiveEnum, PartialEq)]
+#[sea_orm(rs_type = "String", db_type = "String")]  // ✅ Fixed db_type
 pub enum State { 
+    #[sea_orm(string_value = "active")]
     Active, 
+    #[sea_orm(string_value = "deleted")]
     Deleted,
 }
 
@@ -38,8 +38,3 @@ pub enum ConversationStatus {
     Discuss, 
     ReadyToShilling,
 }
-
-#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {}
-
-impl ActiveModelBehavior for ActiveModel {}

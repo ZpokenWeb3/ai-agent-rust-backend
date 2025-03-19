@@ -1,20 +1,11 @@
 use sea_orm::prelude::*;
 use chrono::NaiveDateTime;
-use strum::{Display, EnumString, EnumIter}; 
+use crate::models::base::TradeTypeEnum;
 use sea_orm::sea_query::Expr;
-
-#[derive(Debug, Clone, EnumString, Display, EnumIter, DeriveActiveEnum, PartialEq)] 
-#[sea_orm(rs_type = "String", db_type = "String")]
-pub enum TradeTypeEnum { 
-    #[sea_orm(string_value = "Open")]
-    Open,
-    #[sea_orm(string_value = "Clone")]
-    Clone,
-}
 
 #[derive(Clone, Debug, DeriveEntityModel)]
 #[sea_orm(table_name = "trades")]
-pub struct Model_Trade {
+pub struct Model {
     #[sea_orm(primary_key, auto_increment = true)]
     pub id: i32,
 
@@ -25,7 +16,7 @@ pub struct Model_Trade {
     pub base_token_quantity: f64, 
     pub quote_token_quantity: f64, 
 
-    #[sea_orm(default_value = "Open")] 
+    #[sea_orm(default_expr = "Expr::val(\"open\")")] // ✅ FIXED
     pub trade_type: TradeTypeEnum, 
 
     pub tx_id: String, 
@@ -37,20 +28,6 @@ pub struct Model_Trade {
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation {
-    #[sea_orm(
-        belongs_to = "crate::models::credit::Entity", 
-        from = "Column::PaymentId",
-        to = "crate::models::credit::Column::Id"
-    )]
-    Payment,
-
-    #[sea_orm(
-        belongs_to = "crate::models::user::Entity",
-        from = "Column::ChatUuid",
-        to = "crate::models::user::Column::Id"
-    )]
-    User,
-}
+pub enum Relation {}
 
 impl ActiveModelBehavior for ActiveModel {}

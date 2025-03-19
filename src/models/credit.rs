@@ -1,9 +1,9 @@
 use sea_orm::prelude::*;
-use crate::models::user; // Correct module import
+use crate::models::user;
 
 #[derive(Clone, Debug, DeriveEntityModel)]
 #[sea_orm(table_name = "credits")]
-pub struct Model_Credit {
+pub struct Model {
     #[sea_orm(primary_key, auto_increment = true)] 
     pub id: i32, 
     

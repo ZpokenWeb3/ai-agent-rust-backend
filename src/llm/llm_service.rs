@@ -3,7 +3,7 @@ use rig::{completion::Prompt, providers::openai};
 use serde_json::json;
 use tracing::{error, info};
 use anyhow::Result;
-use crate::models::{Trade, LlmResponse, ActionParameter, ConversationStatus};
+use models::{Trade, LlmResponse, ActionParameter, ConversationStatus};
 
 pub async fn answer_users_msg(
     pool: &PgPool,

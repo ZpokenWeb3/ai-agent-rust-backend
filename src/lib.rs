@@ -1,6 +1,6 @@
-//mod api;
+mod api;
 mod contracts;
 pub mod core;
-//pub mod llm;
+pub mod llm;
 pub mod utils;
-//pub mod models;
+pub mod models;
