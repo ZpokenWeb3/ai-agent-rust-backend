@@ -5,3 +5,4 @@ pub mod credit; // +
 pub mod db_helper; // + 
 pub mod trade;
 pub mod user; // + 
+pub mod price_forecasting;

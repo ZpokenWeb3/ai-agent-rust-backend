@@ -2,15 +2,14 @@ use anyhow::{Result, anyhow};
 use serde_json::{json, Value};
 use sqlx::PgPool;
 use tracing::{error, info};
-use llm_service::{
-    process_fetch_data_from_dex_screener, process_shilling, retrieve_portfolio_information,
-    retrieve_buy_decision, retrieve_pnl_information, validate_raydium_pool, publish_twitter_post,
-    analyze_call_identify_pool
-};
-use crate::models::{ConversationStatus, LlmErrors};
-use crate::openai_client;
+
+//"retrievePnlInformation" => retrieve_pnl_information(args, pool).await,
+
+use crate::llm::actions::{process_fetch_data_from_dex_screener, process_shilling, retrieve_portfolio_information, retrieve_buy_decision, validate_raydium_pool, publish_twitter_post, analyze_call_identify_pool};
+use crate::models::base::{ConversationStatus};
+use crate::core::errors::LLMErrors;
 use rig::providers::openai;
-use async_trait::async_trait;
+
 
 /// Call the appropriate function based on LLM request
 pub async fn call_function(name: &str, args: &Value, pool: &PgPool) -> Result<Value> {
@@ -19,7 +18,7 @@ pub async fn call_function(name: &str, args: &Value, pool: &PgPool) -> Result<Va
         "approveShilling" => process_shilling(args),
         "retrieveCurrentPortfolio" => retrieve_portfolio_information(args, pool).await,
         "retrieveBuyExplanation" => retrieve_buy_decision(args, pool).await,
-        "retrievePnlInformation" => retrieve_pnl_information(args, pool).await,
+        //"retrievePnlInformation" => retrieve_pnl_information(args, pool).await,
         "identifyPool" => validate_raydium_pool(args),
         "generatePostInTwitter" => publish_twitter_post(args),
         "analyzeCallIdentifyPool" => analyze_call_identify_pool(args),
